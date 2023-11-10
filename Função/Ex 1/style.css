@@ -1,0 +1,9 @@
+body{
+    color: aliceblue;
+    background-color: black;
+}
+#parImpar{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}

@@ -1,0 +1,21 @@
+body {
+    color: aliceblue;
+    background-color: black;
+    margin: none;
+    padding: none;
+}
+
+#parImpar {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+}
+
+#inputForm {
+    margin: none;
+    padding: none;
+    background-color: blue;
+    width: 100vw;
+    height: 400px;
+    
+}
