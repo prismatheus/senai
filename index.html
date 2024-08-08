@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usuários e Veículos</title>
+    <link rel="stylesheet" href="styles.css">
+    
+</head>
+<body style="background-color: rgb(177, 224, 255);">
+
+    <h1>MINHA VAGA SENAI</h1>
+
+    <h2 style="padding: 20px;
+    font-size: 26px;">Usuários e seus Veículos</h1>
+    <ul id="usuarios-veiculos"></ul>
+
+    <h2>Pesquisar Veículo</h2>
+    <form id="search-form">
+        <label for="placa">Placa:</label>
+        <input type="text" id="placa" name="placa" required>
+        <button type="submit">Pesquisar</button>
+    </form>
+
+    <p id="result-message"></p>
+
+    <script>
+        // Buscar dados do servidor e exibir usuários e veículos
+        fetch('http://localhost:3000/usuarios-veiculos')
+            .then(response => response.json())
+            .then(data => {
+                const lista = document.getElementById('usuarios-veiculos');
+                data.forEach(item => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `Nome: ${item.NOME}, CPF: ${item.CPF}, Placa: ${item.PLACA || 'Nenhum veículo'}`;
+                    lista.appendChild(listItem);
+                });
+            })
+            .catch(error => console.error('Erro:', error));
+
+        // Manipulador de envio do formulário
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            const placa = document.getElementById('placa').value;
+
+            fetch(`http://localhost:3000/pesquisar-veiculo?placa=${placa}`)
+                .then(response => response.json())
+                .then(data => {
+                    const resultMessage = document.getElementById('result-message');
+                    if (data.found) {
+                        resultMessage.textContent = 'Entrada autorizada';
+                    } else {
+                        resultMessage.textContent = 'Entrada negada';
+                    }
+                })
+                .catch(error => console.error('Erro:', error));
+        });
+    </script>
+</body>
+</html>
